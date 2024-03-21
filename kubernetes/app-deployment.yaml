@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-hackathon-deployment
+  labels:
+    app: hackathon
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hackathon
+  template:
+    metadata:
+      labels:
+        app: hackathon
+    spec:
+      containers:
+        - name: app-hackathon-container
+          image: 807550779778.dkr.ecr.us-east-1.amazonaws.com/fiap-hackathon
+          ports:
+            - containerPort: 80
+          env:
+            - name: POSTGRE_CONNECTION_STRING
+              valueFrom:
+                secretKeyRef:
+                  name: app-hackathon-opaque
+                  key: POSTGRE_CONNECTION_STRING
