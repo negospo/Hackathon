@@ -36,8 +36,23 @@ namespace Hackathon
             //Cria o WebApplication e roda
             var app = builder.Build();
             ConfigApp(app);
+            RunSQLScript();
             app.Run();
         }
+
+
+        static void RunSQLScript()
+        {
+            var _connPg = Repositories.PostgreDB.DB.Connection();
+            var filePath = Path.GetFullPath(@"db.sql");
+            FileInfo file = new FileInfo(filePath);
+            string script = file.OpenText().ReadToEnd();
+            var db_cmd = Repositories.PostgreDB.DB.Command(script, _connPg);
+            _connPg.Open();
+            db_cmd.ExecuteNonQuery();
+            _connPg.Close();
+        }
+
 
         static void ConfigBuilder(WebApplicationBuilder builder)
         {

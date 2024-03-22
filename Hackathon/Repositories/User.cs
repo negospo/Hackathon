@@ -16,7 +16,7 @@ namespace Hackathon.Repositories
             where 
             email = @email and password = @password";
 
-            var user = await PostgreDB.CService.Connection().QueryFirstOrDefaultAsync<Models.Authenticate.User>(query, new
+            var user = await PostgreDB.DB.Connection().QueryFirstOrDefaultAsync<Models.Authenticate.User>(query, new
             {
                 email = request.Email,
                 password = request.Password.Encrypt()
