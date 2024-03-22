@@ -24,6 +24,11 @@ spec:
                 secretKeyRef:
                   name: app-hackathon-opaque
                   key: POSTGRE_CONNECTION_STRING
+            - name: ASPNETCORE_ENVIRONMENT
+              valueFrom:
+                configMapKeyRef:
+                  name: app-hackathon-config
+                  key: ASPNETCORE_ENVIRONMENT
           resources:
             requests:
               memory: 256Mi
@@ -31,3 +36,10 @@ spec:
             limits:
               memory: 512Mi
               cpu: 400m
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: app-hackathon-config
+data:
+  ASPNETCORE_ENVIRONMENT: "DEVELOPMENT"
