@@ -18,5 +18,6 @@ RUN dotnet publish "Hackathon.csproj" -c Release -o /app/publish /p:UseAppHost=f
 
 FROM base AS final
 WORKDIR /app
+COPY ./Hackathon/db.sql .
 COPY --from=publish /app/publish .
 ENTRYPOINT ["dotnet", "Hackathon.dll"]

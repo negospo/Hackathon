@@ -5,7 +5,6 @@ metadata:
   labels:
     app: hackathon
 spec:
-  replicas: 1
   selector:
     matchLabels:
       app: hackathon
@@ -25,3 +24,10 @@ spec:
                 secretKeyRef:
                   name: app-hackathon-opaque
                   key: POSTGRE_CONNECTION_STRING
+          resources:
+            requests:
+              memory: 256Mi
+              cpu: 200m
+            limits:
+              memory: 512Mi
+              cpu: 400m
